@@ -1,0 +1,53 @@
+Aufgabe 1a):
+-------------
+
+<program> ::= 'reise' <integer>' '<stadtName>' '<stadtName>' '<stadtName> ... ' '<verbindung> ...;
+
+<integer> ::= '1'|'2'|...|'9';
+<stadtName> ::= <string>;
+<verbindung> ::= <stadtName> <stadtName> <Zeit>
+<Zeit> ::= <Z1>,<Z2>;
+<string> ::= <s1>,<s2>;
+
+<s1> ::= 'A'|'B'|...|'Z'
+<s2> ::= 'a'|'b'|...|'z'
+<Z1> ::= '1'|'2'|...|'9';
+<Z2> ::= '0'|'1'|'2'|...|'9';
+
+1b)
+Through back tracking it is possible to search all possible solutions systematically. Different solutions path are generated recursively and is checked if it satisfies all conditions. If it does not satisfy then it is rejected and a new solution path explored. It continues until all possible solutions with satisfactory result is found. 
+
+1c)
+
+1. Initialize variables to store visited cities, current path, required time
+2. Push the starting city onto to the variable of current Path
+3. Mark the starting city as visited 
+4. Call backtrack function with the starting city, current Path variable, visited, totalTime, and shortestTime as parameters
+5. If shortestPath is not empty, copy its contents to weg
+6. Return the length of the shortestPath
+7. backtrack(city, current Path, visited, totalTime, shortestTime):
+   a. If all cities have been visited, check if the current path is a complete round trip
+      i. If it is, update shortestPath and shortestTime
+   b. If not all cities have been visited:
+      i. Loop through all unvisited cities from the current city
+      ii. For each unvisited city, calculate the time taken to travel to it from the current city
+      iii. If the time taken plus totalTime is greater than maxDauer, skip this city
+      iv. Otherwise, push the city onto current Path, mark it as visited, and update totalTime
+      v. Recursively call backtrack function with the new city, current Path, visited, totalTime, and shortestTime as parameters
+      vi. Pop the city from current Path, mark it as unvisited, and subtract the time taken from totalTime
+8. Return from backtrack function
+
+ 
+
+----------------------------------------------------------------------------------------
+Aufgabe 3:
+-----------
+Let n is the length of the 'staedte' array. In my function sortiereStaedte(routen_t routen),the outer loop iterates over each element of staedte array except the last one, so here time complexity is O(n-1).The inner loop iterates over the remaining elements of the array starting from the current index of the outer loop, so it has a time complexity of O(n-i-1) for each iteration of the outer loop.Inside the inner loop, the strcasecmp function is used to compare the name field of two stadt_t structs, which has a time complexity of O(k) where k is the length of the shortest string being compared. This complexity is bounded by a constant factor, so we can consider it to be O(1) for the purpose of analyzing the overall time complexity of the function.The rest of the code inside the inner loop has a time complexity of O(1) as well, since it only involves simple assignments. so overall time complexity: 
+T(n) = (n-1) * (1 + (n-1) * (1 + 1)) 
+     = (n-1) * (n^2 - n + 2) 
+     = n^3 - 2n^2 + n - 2
+
+ so  the time complexity of the function is O(n^3), it is a very inefficient for large arrays.
+
+
+
